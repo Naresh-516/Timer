@@ -3,6 +3,7 @@ const startBtn=document.getElementById("start")
 const stopBtn=document.getElementById("stop")
 const msgInp=document.getElementById("msg")
 const Timer=document.getElementById("timer")
+const resumeBtn=document.getElementById("resume")
 
 
 const startfun=()=>{  
@@ -11,9 +12,10 @@ const startfun=()=>{
 if(minInp>0){
     let  tim=minInp*60;
     const timerfun=setInterval(()=>{ 
-        console.log(tim);
         tim--;
-          Timer.textContent=`${Math.floor(tim/60)}:${tim%60}`
+          //Timer.textContent=`${Math.floor(tim/60)}:${tim%60}`
+          Timer.textContent= `${Math.floor(tim/60).toString().padStart(2, "0")}:${(tim%60).toString().padStart(2, "0")}`;
+          
         if(tim==0){
             clearInterval(timerfun);
             Timer.textContent=`00:00`
@@ -24,12 +26,20 @@ if(minInp>0){
       
         stopBtn.addEventListener('click',()=>{
             clearInterval(timerfun);
-            Timer.textContent=`${Math.floor(tim/60)}:${tim%60}`
+            Timer.textContent= `${Math.floor(tim/60).toString().padStart(2, "0")}:${(tim%60).toString().padStart(2, "0")}`;
             msgInp.textContent=`you Stopped Timer at ${Timer.textContent}`;
 
         })
+        resumeBtn.addEventListener('click',()=>{
+           clearInterval(timerfun);
+             Timer.textContent=`00:00`
+             msgInp.textContent="";
+            
+        })
+
+    
 }else{
-    alert(`Time Cannot be Negative......`);
+    alert(`Time Cannot be Zero or Negative......`);
     return;
 }
         
